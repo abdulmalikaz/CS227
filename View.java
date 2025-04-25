@@ -7,7 +7,7 @@ public class View
     
     model m = new model(2048); // Here to change Memory 
     
-    String fileName = "job.txt"; //This is File Name
+    String fileName = "src/job.txt"; //This is File Name
     
     //Thread LoadThread = new Thread(new MyRunnable(ThreadState.LoadToJobQueue, m));               
     Thread LoadThread = new Thread(new MyRunnable(ThreadState.LoadToJobQueueWithComments, m));  //this same as a above but with comments memory full .. 
@@ -96,6 +96,7 @@ public class View
                     {
                         try
                         {
+                            int tmp;
                             System.out.print("-->");
                             quantum = scanner.nextInt();
                             System.out.println();                   
@@ -103,7 +104,7 @@ public class View
                         catch(InputMismatchException e)
                         {
                             scanner.next();
-                            System.out.println("Please enter a positive number");
+                            System.out.println("Please enter a valid number");
                             System.out.println();
                         }
                     }while (quantum <= 0);
@@ -139,11 +140,12 @@ public class View
                         if (p == null){System.out.println("Warning You Didnt try using FCFS ");}
                         if (p2 == null){System.out.println("Warning You Didnt try using Priorty ");}
                         if (p3 == null){System.out.println("Warning You Didnt try using Round Roubin ");}
-                        System.out.print("--> ");
-                        ch = scanner.nextInt();
-                        System.out.println();
+
                         try
                         {
+                            System.out.print("--> ");
+                            ch = scanner.nextInt();
+                            System.out.println();
                             if(ch ==1 )
                                 all.BetterPerformanceAt(p,p2,p3,status.TurnAroundTime);
                             else if (ch ==2 )
@@ -152,8 +154,17 @@ public class View
                                 all.BetterPerformanceAt(p,p2,p3,status.FirstResponseTime);
                             else if (ch ==4 )
                                 all.BetterPerformanceAt(p,p2,p3,status.FinishResponseTime);
-                            else
-                                System.out.println("Invalid input");
+                            else {
+                                System.out.println("Wrong number please enter a valid number");
+                                continue;
+                            }
+                        }
+                        catch (InputMismatchException e )
+                        {
+                            System.out.println("Invalid input. Please enter a valid option.");
+                            scanner.nextLine();
+                            continue;
+
                         }
                         catch (Exception e )
                         {
