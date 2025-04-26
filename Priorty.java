@@ -212,34 +212,15 @@ public class Priorty {
 	private void handleStarvation(PCB pcb, int systemLoad) {
 		// Starvation detected - print detailed alert
 		System.out.printf(
-				"\n⚠️ STARVATION ALERT ⚠️\n" +
-						"  Process ID: %d\n" +
-						"  Current Priority: %d\n" +
-						"  Waited for: %d cycles beyond threshold\n",
+				"\nSTARVATION ALERT " +
+						"  Process ID: %d" +
+						"  Current Priority: %d \n",
+
 				pcb.getId(),
-				pcb.getPriority(),
-				Math.abs(pcb.getRequiredCount())
+				pcb.getPriority()
+
 		);
 
-		// Calculate priority boost with upper limit
-		int oldPriority = pcb.getPriority();
-		int newPriority = Math.min(8, oldPriority + getPriorityBoostAmount(oldPriority));
-
-		// Apply changes
-		pcb.setPriority(newPriority);
-		pcb.setRequiredCount(calculateNewThreshold(systemLoad));
-
-		// Print resolution details
-		System.out.printf(
-				"✅ RESOLUTION:\n" +
-						"  Priority increased: %d → %d\n" +
-						"  New starvation threshold: %d cycles\n" +
-						"  System load consideration: %d active processes\n\n",
-				oldPriority,
-				newPriority,
-				pcb.getRequiredCount(),
-				systemLoad
-		);
 	}
 
 	// Helper method to determine how much to boost priority
