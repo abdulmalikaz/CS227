@@ -170,9 +170,7 @@ public class View
                             }catch(InputMismatchException e){
                                 System.out.println("Invalid input please enter correct number");
                                 scanner.next(); // clear buffer "Enter"
-                                System.out.print("-->"); 
-                                ch = scanner.nextInt();
-                                System.out.println();
+//                                continue;
                             }
                         }while(ch < 0);
                         System.out.println();
