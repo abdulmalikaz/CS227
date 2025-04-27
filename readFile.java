@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class readFile {
                     continue;
                 }
                 // 1:2:3:4;1024
-                try {  
+                try {
+                    line = line.replace("\"", "");
                     String[] parts = line.split(";"); // { 1:2:3:4 , 1024 }
 
                     String[] values = parts[0].split(":"); // { 1, 2 ,3 ,4 }
@@ -32,10 +34,14 @@ public class readFile {
                     int priority = Integer.parseInt(values[2]);
                     int reqMemory = Integer.parseInt(parts[1]);
 
-                    list.add(new int[]{pid, burstTime_In_ms, priority, reqMemory});
-                } catch (NumberFormatException e) {  
+                    list.add(new int[]{Math.abs(pid), Math.abs(burstTime_In_ms), Math.abs(priority), Math.abs(reqMemory)});
+                } catch (NumberFormatException e) {
+                    System.out.println("Type: " );
                     System.out.println("Error parsing numbers in line: " + line);
-                } catch (ArrayIndexOutOfBoundsException e) {  
+                }  catch (InputMismatchException e) {
+                System.out.println("Mismatch exception: " + line);
+            }
+                catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Error: Incorrect format in line: " + line);
                 }
             }
